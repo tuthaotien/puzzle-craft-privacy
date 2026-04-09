@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Puzzle Craft Privacy Policy</title>
+  <meta name="description" content="Privacy Policy for Puzzle Craft." />
+  <style>
+    :root {
+      --bg1: #241733;
+      --bg2: #55407e;
+      --bg3: #f6bdd8;
+      --glass: rgba(255,255,255,.16);
+      --glass-2: rgba(255,255,255,.22);
+      --line: rgba(255,255,255,.2);
+      --text: #fff9ff;
+      --muted: rgba(255,249,255,.78);
+      --soft: rgba(255,249,255,.62);
+      --accent: #a7efff;
+      --shadow: rgba(0,0,0,.24);
+      font-family: "Segoe UI","SF Pro Text","Noto Sans",Arial,sans-serif;
+      color-scheme: light;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,.16), transparent 32%),
+        radial-gradient(circle at top right, rgba(255,227,210,.15), transparent 26%),
+        linear-gradient(135deg, var(--bg1), var(--bg2) 48%, var(--bg3));
+      padding: 20px 14px 40px;
+    }
+    .page { max-width: 980px; margin: 0 auto; }
+    .glass {
+      background: linear-gradient(135deg, var(--glass-2), var(--glass));
+      border: 1px solid var(--line);
+      box-shadow: 0 22px 44px var(--shadow), inset 0 1px 0 rgba(255,255,255,.18);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .hero {
+      border-radius: 28px;
+      padding: 26px;
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      gap: 18px;
+      align-items: center;
+    }
+    .logo {
+      width: 112px;
+      height: 112px;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.34);
+      background: rgba(255,255,255,.12);
+      box-shadow: 0 12px 26px rgba(0,0,0,.2);
+    }
+    .logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    h1 { margin: 0; font-size: clamp(28px, 4vw, 40px); letter-spacing: -.03em; }
+    h2 { margin: 8px 0 0; font-size: clamp(16px, 2vw, 20px); color: var(--muted); }
+    .intro { margin: 14px 0 0; color: var(--muted); line-height: 1.65; font-size: 15px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.11);
+      border: 1px solid rgba(255,255,255,.18);
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .toolbar { margin-top: 18px; display: grid; gap: 12px; }
+    .langs {
+      border-radius: 22px;
+      padding: 14px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .lang-btn {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.1);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: .18s ease;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .lang-btn img { width: 18px; height: 18px; border-radius: 50%; object-fit: cover; }
+    .lang-btn.active {
+      background: rgba(105, 210, 255, .22);
+      border-color: rgba(167,239,255,.82);
+    }
+    .note {
+      border-radius: 18px;
+      padding: 14px 16px;
+      color: var(--soft);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .content { margin-top: 18px; display: grid; gap: 14px; }
+    .section { border-radius: 22px; padding: 22px; }
+    .section h3 { margin: 0 0 10px; font-size: clamp(18px, 2.2vw, 22px); }
+    .section p, .section li { color: var(--muted); font-size: 15px; line-height: 1.72; }
+    .section ul { margin: 10px 0 0; padding-left: 20px; }
+    .section a { color: var(--accent); font-weight: 700; text-decoration: none; }
+    .section a:hover { text-decoration: underline; }
+    .footer { margin-top: 18px; border-radius: 22px; padding: 16px 18px; color: var(--soft); font-size: 13px; line-height: 1.6; }
+    @media (max-width: 720px) {
+      .hero { grid-template-columns: 1fr; padding: 22px; }
+      .logo { width: 92px; height: 92px; border-radius: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero glass">
+      <div class="logo"><img src="./assets/icon/app_logo.png" alt="Puzzle Craft logo" /></div>
+      <div>
+        <h1 id="title"></h1>
+        <h2 id="subtitle"></h2>
+        <p class="intro" id="intro"></p>
+        <div class="chips" id="chips"></div>
+      </div>
+    </section>
+
+    <div class="toolbar">
+      <div class="langs glass" id="langs"></div>
+      <div class="note glass" id="note"></div>
+    </div>
+
+    <section class="content" id="content"></section>
+    <footer class="footer glass" id="footer"></footer>
+  </main>
+
+  <script>
+    const sections = ["local", "ads", "use", "age", "rights", "links", "contact"];
+    const t = {
+      en: {
+        label: "English", flag: "./assets/flags/us.webp",
+        title: "Privacy Policy", subtitle: "Puzzle Craft",
+        intro: "Puzzle Craft is a relaxing picture puzzle game for players aged 13 and older. This page explains what data may be stored on your device or processed by advertising partners when you use the app.",
+        chips: ["13+", "Google AdMob", "Local Save Data", "No Account Required"],
+        note: "Your language choice is stored only in your browser. This page is designed to work as a standalone Google Play privacy link.",
+        localTitle: "1. Local data on your device",
+        localHtml: "<p>Puzzle Craft stores gameplay data directly on your device so you can continue where you left off. This can include mission progress, Daily progress, score, hint inventory, cooldown timers, sound or visual settings, and similar gameplay preferences.</p><ul><li>No sign-in account is required.</li><li>You can remove this data by clearing app storage or uninstalling the app.</li></ul>",
+        adsTitle: "2. Advertising and third parties",
+        adsHtml: "<p>Puzzle Craft uses Google AdMob for interstitial ads and rewarded ads. When ads are requested, loaded, or shown, Google and its partners may process device identifiers, IP address, basic diagnostics, approximate location inferred from IP, and ad interaction data under their own policies.</p><ul><li>Rewarded ads are optional.</li><li>Interstitial ads may appear at selected gameplay moments.</li></ul>",
+        useTitle: "3. How information is used",
+        useHtml: "<ul><li>Save and restore your progress and settings.</li><li>Provide rewarded hints and advertising.</li><li>Maintain app stability, performance, and abuse prevention.</li><li>Improve the gameplay experience over time.</li></ul>",
+        ageTitle: "4. Age rating and regions",
+        ageHtml: "<p>Puzzle Craft is intended for a general audience aged 13+ and is not directed to children under 13.</p><p>The app is currently intended for markets outside the European Union / EEA and Indonesia. Store availability may be limited accordingly. If you access the app from a region with additional privacy rights, local law may still apply.</p>",
+        rightsTitle: "5. Your choices",
+        rightsHtml: "<ul><li>You can stop using the app at any time.</li><li>You can clear local data by removing app storage or uninstalling the app.</li><li>You may manage ad preferences or reset your advertising identifier in device settings where supported.</li></ul>",
+        linksTitle: "6. Third-party privacy links",
+        linksHtml: '<ul><li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a></li><li><a href="https://support.google.com/admob/answer/6128543" target="_blank" rel="noopener">Google AdMob data practices</a></li></ul>',
+        contactTitle: "7. Contact",
+        contactHtml: "<p>For privacy questions about Puzzle Craft, please use the developer contact information shown on the Google Play listing for the app.</p><p>This policy may be updated if the app, services, or distribution regions change.</p>",
+        footer: "Last updated: April 9, 2026. Keep this document aligned with your real Play Console distribution settings and actual in-app behavior."
+      },
+      vi: {
+        label: "Tiếng Việt", flag: "./assets/flags/vn.webp",
+        title: "Chính Sách Quyền Riêng Tư", subtitle: "Puzzle Craft",
+        intro: "Puzzle Craft là game xếp hình thư giãn dành cho người chơi từ 13 tuổi trở lên. Trang này giải thích dữ liệu nào có thể được lưu trên thiết bị của bạn hoặc được đối tác quảng cáo xử lý khi bạn dùng ứng dụng.",
+        chips: ["13+", "Google AdMob", "Lưu cục bộ", "Không cần tài khoản"],
+        note: "Ngôn ngữ bạn chọn chỉ được lưu trong trình duyệt. Trang này được thiết kế để dùng trực tiếp làm link privacy cho Google Play.",
+        localTitle: "1. Dữ liệu lưu trên thiết bị",
+        localHtml: "<p>Puzzle Craft lưu dữ liệu chơi game trực tiếp trên thiết bị để bạn có thể chơi tiếp từ trạng thái trước đó. Dữ liệu có thể gồm tiến trình mission, Daily, điểm số, số lượng hint, thời gian cooldown, cài đặt âm thanh/hình ảnh và các tuỳ chọn gameplay tương tự.</p><ul><li>Không cần đăng nhập tài khoản.</li><li>Bạn có thể xoá dữ liệu bằng cách xoá bộ nhớ ứng dụng hoặc gỡ app.</li></ul>",
+        adsTitle: "2. Quảng cáo và bên thứ ba",
+        adsHtml: "<p>Puzzle Craft dùng Google AdMob cho quảng cáo xen kẽ và quảng cáo thưởng. Khi quảng cáo được yêu cầu, tải hoặc hiển thị, Google và đối tác có thể xử lý mã định danh thiết bị, địa chỉ IP, dữ liệu chẩn đoán cơ bản, vị trí xấp xỉ suy ra từ IP và dữ liệu tương tác quảng cáo theo chính sách của họ.</p><ul><li>Quảng cáo thưởng là tuỳ chọn.</li><li>Quảng cáo xen kẽ có thể xuất hiện ở một số thời điểm chơi.</li></ul>",
+        useTitle: "3. Dữ liệu được dùng để làm gì",
+        useHtml: "<ul><li>Lưu và khôi phục tiến trình cùng cài đặt.</li><li>Cung cấp hint thưởng và quảng cáo.</li><li>Duy trì độ ổn định, hiệu năng và chống lạm dụng.</li><li>Cải thiện trải nghiệm chơi theo thời gian.</li></ul>",
+        ageTitle: "4. Độ tuổi và khu vực",
+        ageHtml: "<p>Puzzle Craft dành cho đối tượng phổ thông 13+ và không hướng tới trẻ em dưới 13 tuổi.</p><p>Ứng dụng hiện được định hướng cho các thị trường ngoài Liên minh châu Âu / EEA và Indonesia. Phạm vi phát hành trên cửa hàng có thể được giới hạn tương ứng. Nếu bạn truy cập từ khu vực có quyền riêng tư bổ sung, luật địa phương vẫn có thể được áp dụng.</p>",
+        rightsTitle: "5. Lựa chọn của bạn",
+        rightsHtml: "<ul><li>Bạn có thể ngừng dùng app bất cứ lúc nào.</li><li>Bạn có thể xoá dữ liệu cục bộ bằng cách xoá bộ nhớ ứng dụng hoặc gỡ cài đặt.</li><li>Bạn có thể quản lý tuỳ chọn quảng cáo hoặc đặt lại advertising ID trong cài đặt thiết bị nếu thiết bị hỗ trợ.</li></ul>",
+        linksTitle: "6. Liên kết chính sách bên thứ ba",
+        linksHtml: '<ul><li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Chính sách quyền riêng tư của Google</a></li><li><a href="https://support.google.com/admob/answer/6128543" target="_blank" rel="noopener">Cách Google AdMob xử lý dữ liệu</a></li></ul>',
+        contactTitle: "7. Liên hệ",
+        contactHtml: "<p>Nếu bạn có câu hỏi về quyền riêng tư của Puzzle Craft, vui lòng dùng thông tin liên hệ của nhà phát triển trên trang Google Play của ứng dụng.</p><p>Chính sách này có thể được cập nhật khi app, dịch vụ hoặc khu vực phát hành thay đổi.</p>",
+        footer: "Cập nhật lần cuối: 09 April 2026. Nội dung này cần luôn khớp với thiết lập phân phối trong Play Console và hành vi thực tế của app."
+      },
+      es: {
+        label: "Español", flag: "./assets/flags/es.webp",
+        title: "Política de Privacidad", subtitle: "Puzzle Craft",
+        intro: "Puzzle Craft es un juego de rompecabezas relajante para jugadores de 13 años o más. Esta página explica qué datos pueden guardarse en tu dispositivo o ser tratados por socios publicitarios cuando usas la app.",
+        chips: ["13+", "Google AdMob", "Datos locales", "Sin cuenta"],
+        note: "El idioma elegido solo se guarda en tu navegador. Esta página puede usarse directamente como enlace de privacidad para Google Play.",
+        localTitle: "1. Datos guardados en el dispositivo",
+        localHtml: "<p>Puzzle Craft guarda datos de juego directamente en tu dispositivo para continuar desde tu progreso anterior. Esto puede incluir progreso de misiones, progreso Daily, puntuación, inventario de pistas, temporizadores de recarga, ajustes visuales o de sonido y preferencias similares.</p><ul><li>No se requiere iniciar sesión.</li><li>Puedes borrar estos datos limpiando el almacenamiento de la app o desinstalándola.</li></ul>",
+        adsTitle: "2. Publicidad y terceros",
+        adsHtml: "<p>Puzzle Craft usa Google AdMob para anuncios intersticiales y con recompensa. Cuando los anuncios se solicitan, cargan o muestran, Google y sus socios pueden tratar identificadores del dispositivo, dirección IP, diagnósticos básicos, ubicación aproximada inferida por IP y datos de interacción publicitaria según sus propias políticas.</p><ul><li>Los anuncios con recompensa son opcionales.</li><li>Los intersticiales pueden aparecer en momentos concretos del juego.</li></ul>",
+        useTitle: "3. Cómo se usa la información",
+        useHtml: "<ul><li>Guardar y restaurar progreso y ajustes.</li><li>Ofrecer pistas con recompensa y anuncios.</li><li>Mantener estabilidad, rendimiento y prevención de abuso.</li><li>Mejorar la experiencia de juego con el tiempo.</li></ul>",
+        ageTitle: "4. Edad y regiones",
+        ageHtml: "<p>Puzzle Craft está pensado para una audiencia general de 13+ y no se dirige a menores de 13 años.</p><p>Actualmente la app se orienta a mercados fuera de la Unión Europea / EEE e Indonesia. La disponibilidad puede limitarse en consecuencia. Si accedes desde una región con derechos de privacidad adicionales, la ley local puede seguir aplicándose.</p>",
+        rightsTitle: "5. Tus opciones",
+        rightsHtml: "<ul><li>Puedes dejar de usar la app en cualquier momento.</li><li>Puedes eliminar los datos locales borrando el almacenamiento o desinstalando la app.</li><li>Puedes gestionar preferencias de anuncios o reiniciar tu identificador publicitario desde la configuración del dispositivo cuando exista soporte.</li></ul>",
+        linksTitle: "6. Enlaces de terceros",
+        linksHtml: '<ul><li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Política de Privacidad de Google</a></li><li><a href="https://support.google.com/admob/answer/6128543" target="_blank" rel="noopener">Prácticas de datos de Google AdMob</a></li></ul>',
+        contactTitle: "7. Contacto",
+        contactHtml: "<p>Si tienes preguntas sobre privacidad relacionadas con Puzzle Craft, usa los datos de contacto del desarrollador mostrados en la ficha de Google Play de la app.</p><p>Esta política puede actualizarse si cambian la app, los servicios o las regiones de distribución.</p>",
+        footer: "Última actualización: 9 de abril de 2026. Este documento debe mantenerse alineado con la configuración real de Google Play y con el comportamiento real de la app."
+      },
+      pt: {
+        label: "Português", flag: "./assets/flags/br.webp",
+        title: "Política de Privacidade", subtitle: "Puzzle Craft",
+        intro: "Puzzle Craft é um jogo relaxante de quebra-cabeça de imagens para pessoas com 13 anos ou mais. Esta página explica quais dados podem ser salvos no seu dispositivo ou processados por parceiros de anúncios quando você usa o app.",
+        chips: ["13+", "Google AdMob", "Dados locais", "Sem conta"],
+        note: "O idioma escolhido é salvo apenas no navegador. Esta página pode ser usada diretamente como link de privacidade para Google Play.",
+        localTitle: "1. Dados salvos no dispositivo",
+        localHtml: "<p>O Puzzle Craft salva dados de jogo diretamente no seu dispositivo para continuar do ponto em que você parou. Isso pode incluir progresso de missões, progresso Daily, pontuação, estoque de dicas, temporizadores, ajustes visuais ou sonoros e preferências semelhantes.</p><ul><li>Não é necessário fazer login.</li><li>Você pode remover esses dados limpando o armazenamento do app ou desinstalando-o.</li></ul>",
+        adsTitle: "2. Publicidade e terceiros",
+        adsHtml: "<p>O Puzzle Craft usa Google AdMob para anúncios intersticiais e recompensados. Quando anúncios são solicitados, carregados ou exibidos, Google e parceiros podem processar identificadores do dispositivo, endereço IP, diagnósticos básicos, localização aproximada inferida por IP e dados de interação com anúncios conforme suas próprias políticas.</p><ul><li>Anúncios recompensados são opcionais.</li><li>Anúncios intersticiais podem aparecer em momentos específicos do jogo.</li></ul>",
+        useTitle: "3. Como as informações são usadas",
+        useHtml: "<ul><li>Salvar e restaurar progresso e configurações.</li><li>Fornecer dicas recompensadas e anúncios.</li><li>Manter estabilidade, desempenho e prevenção de abuso.</li><li>Melhorar a experiência do jogo ao longo do tempo.</li></ul>",
+        ageTitle: "4. Idade e regiões",
+        ageHtml: "<p>O Puzzle Craft é destinado a público geral de 13+ e não é direcionado a menores de 13 anos.</p><p>Atualmente o app é voltado para mercados fora da União Europeia / EEE e da Indonésia. A disponibilidade pode ser limitada de acordo com isso. Se você acessar o app em uma região com direitos adicionais de privacidade, a lei local ainda pode se aplicar.</p>",
+        rightsTitle: "5. Suas escolhas",
+        rightsHtml: "<ul><li>Você pode parar de usar o app a qualquer momento.</li><li>Você pode apagar os dados locais removendo o armazenamento do app ou desinstalando-o.</li><li>Você pode gerenciar preferências de anúncios ou redefinir seu identificador de publicidade nas configurações do dispositivo quando houver suporte.</li></ul>",
+        linksTitle: "6. Links de terceiros",
+        linksHtml: '<ul><li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Política de Privacidade do Google</a></li><li><a href="https://support.google.com/admob/answer/6128543" target="_blank" rel="noopener">Práticas de dados do Google AdMob</a></li></ul>',
+        contactTitle: "7. Contato",
+        contactHtml: "<p>Se você tiver dúvidas sobre privacidade relacionadas ao Puzzle Craft, use os dados de contato do desenvolvedor exibidos na página do app no Google Play.</p><p>Esta política pode ser atualizada se o app, os serviços ou as regiões de distribuição mudarem.</p>",
+        footer: "Última atualização: 9 de abril de 2026. Este documento deve permanecer alinhado ao comportamento real do app e à configuração real do Google Play."
+      },
+      ja: {
+        label: "日本語", flag: "./assets/flags/jp.webp",
+        title: "プライバシーポリシー", subtitle: "Puzzle Craft",
+        intro: "Puzzle Craft は13歳以上向けのリラックスできる画像パズルゲームです。このページでは、アプリ利用時に端末へ保存されるデータや広告パートナーによって処理される可能性のある情報を説明します。",
+        chips: ["13+", "Google AdMob", "端末保存", "アカウント不要"],
+        note: "選択した言語はブラウザにのみ保存されます。このページは Google Play 用のプライバシーリンクとしてそのまま使えます。",
+        localTitle: "1. 端末に保存されるデータ",
+        localHtml: "<p>Puzzle Craft は続きから遊べるようにゲームデータを端末内へ保存します。これにはミッション進行、Daily 進行、スコア、ヒント在庫、クールダウン時間、音や表示の設定などが含まれる場合があります。</p><ul><li>ログインは不要です。</li><li>アプリデータ削除またはアンインストールで削除できます。</li></ul>",
+        adsTitle: "2. 広告と第三者サービス",
+        adsHtml: "<p>Puzzle Craft は Google AdMob を利用してインタースティシャル広告とリワード広告を表示します。広告のリクエスト、読み込み、表示時に、Google とそのパートナーは端末識別子、IP アドレス、基本診断情報、IP から推定されるおおよその位置情報、広告操作情報を各社ポリシーに基づいて処理する場合があります。</p><ul><li>リワード広告は任意です。</li><li>インタースティシャル広告は特定のゲームタイミングで表示される場合があります。</li></ul>",
+        useTitle: "3. 情報の利用目的",
+        useHtml: "<ul><li>進行状況や設定の保存と復元</li><li>ヒント報酬や広告の提供</li><li>安定性・性能維持と不正防止</li><li>ゲーム体験の改善</li></ul>",
+        ageTitle: "4. 年齢と配信地域",
+        ageHtml: "<p>Puzzle Craft は13歳以上の一般ユーザー向けで、13歳未満の子どもを対象としていません。</p><p>本アプリは現在、欧州連合 / EEA およびインドネシア以外の市場を主な対象としています。配信地域はそれに応じて制限される場合があります。追加のプライバシー権がある地域から利用する場合は、現地法が適用されることがあります。</p>",
+        rightsTitle: "5. ユーザーの選択",
+        rightsHtml: "<ul><li>いつでもアプリの利用を停止できます。</li><li>端末のアプリデータ削除またはアンインストールでローカルデータを削除できます。</li><li>対応端末では広告設定や広告IDのリセットを端末設定から行えます。</li></ul>",
+        linksTitle: "6. 第三者ポリシーへのリンク",
+        linksHtml: '<ul><li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google プライバシーポリシー</a></li><li><a href="https://support.google.com/admob/answer/6128543" target="_blank" rel="noopener">Google AdMob のデータ取扱い</a></li></ul>',
+        contactTitle: "7. お問い合わせ",
+        contactHtml: "<p>Puzzle Craft のプライバシーに関する質問は、Google Play のアプリ掲載ページに表示されている開発者連絡先をご利用ください。</p><p>アプリ、サービス、配信地域の変更に応じてこのポリシーは更新される場合があります。</p>",
+        footer: "最終更新日: 2026年4月9日。この文書は Google Play の実際の配信設定とアプリの実際の動作に合わせて維持してください。"
+      },
+      ko: {
+        label: "한국어", flag: "./assets/flags/kr.webp",
+        title: "개인정보 처리방침", subtitle: "Puzzle Craft",
+        intro: "Puzzle Craft는 만 13세 이상 사용자를 위한 편안한 그림 퍼즐 게임입니다. 이 페이지는 앱 사용 중 기기에 저장되거나 광고 파트너가 처리할 수 있는 정보를 설명합니다.",
+        chips: ["13+", "Google AdMob", "로컬 저장", "계정 불필요"],
+        note: "선택한 언어는 브라우저에만 저장됩니다. 이 페이지는 Google Play용 개인정보 링크로 바로 사용할 수 있습니다.",
+        localTitle: "1. 기기에 저장되는 데이터",
+        localHtml: "<p>Puzzle Craft는 이어서 플레이할 수 있도록 게임 데이터를 기기에 직접 저장합니다. 여기에는 미션 진행, Daily 진행, 점수, 힌트 수량, 쿨다운 시간, 사운드/화면 설정 등이 포함될 수 있습니다.</p><ul><li>로그인이 필요하지 않습니다.</li><li>앱 저장소 삭제 또는 앱 제거로 데이터를 지울 수 있습니다.</li></ul>",
+        adsTitle: "2. 광고 및 제3자 서비스",
+        adsHtml: "<p>Puzzle Craft는 Google AdMob을 사용하여 전면 광고와 리워드 광고를 제공합니다. 광고가 요청, 로드 또는 표시될 때 Google과 파트너사는 기기 식별자, IP 주소, 기본 진단 정보, IP 기반 대략적 위치, 광고 상호작용 데이터를 자체 정책에 따라 처리할 수 있습니다.</p><ul><li>리워드 광고는 선택 사항입니다.</li><li>전면 광고는 특정 시점에 표시될 수 있습니다.</li></ul>",
+        useTitle: "3. 정보의 사용 목적",
+        useHtml: "<ul><li>진행 상태와 설정 저장 및 복원</li><li>리워드 힌트와 광고 제공</li><li>안정성, 성능 유지 및 악용 방지</li><li>게임 경험 개선</li></ul>",
+        ageTitle: "4. 연령 및 지역",
+        ageHtml: "<p>Puzzle Craft는 만 13세 이상 일반 이용자를 대상으로 하며 13세 미만 아동을 대상으로 하지 않습니다.</p><p>현재 이 앱은 유럽연합 / EEA 및 인도네시아 외 지역 시장을 중심으로 제공될 예정입니다. 스토어 배포는 이에 따라 제한될 수 있습니다. 추가적인 개인정보 권리가 있는 지역에서 접속하는 경우 현지 법률이 적용될 수 있습니다.</p>",
+        rightsTitle: "5. 사용자 선택권",
+        rightsHtml: "<ul><li>언제든지 앱 사용을 중단할 수 있습니다.</li><li>앱 저장소 삭제 또는 앱 제거로 로컬 데이터를 삭제할 수 있습니다.</li><li>지원되는 기기에서는 기기 설정에서 광고 환경설정 또는 광고 ID 재설정을 관리할 수 있습니다.</li></ul>",
+        linksTitle: "6. 제3자 정책 링크",
+        linksHtml: '<ul><li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google 개인정보처리방침</a></li><li><a href="https://support.google.com/admob/answer/6128543" target="_blank" rel="noopener">Google AdMob 데이터 처리 안내</a></li></ul>',
+        contactTitle: "7. 문의",
+        contactHtml: "<p>Puzzle Craft의 개인정보 관련 문의는 Google Play 앱 페이지에 표시된 개발자 연락처를 이용해 주세요.</p><p>앱, 서비스 또는 배포 지역이 바뀌면 이 정책도 업데이트될 수 있습니다.</p>",
+        footer: "최종 업데이트: 2026년 4월 9일. 이 문서는 실제 앱 동작 및 Google Play 배포 설정과 일치하도록 유지되어야 합니다."
+      }
+    };
+
+    const order = ["en", "vi", "es", "pt", "ja", "ko"];
+    const storageKey = "puzzleCraftPrivacyLang";
+    const contactEmailHtml = '<p>Email: <a href="mailto:tuthaotien@gmail.com">tuthaotien@gmail.com</a></p>';
+
+    function preferredLang() {
+      const query = new URLSearchParams(location.search).get("lang");
+      if (query && t[query]) return query;
+      return "en";
+    }
+
+    function renderLangButtons(active) {
+      const wrap = document.getElementById("langs");
+      wrap.innerHTML = "";
+      order.forEach((code) => {
+        const item = t[code];
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = `lang-btn${code === active ? " active" : ""}`;
+        btn.innerHTML = `<img src="${item.flag}" alt="${item.label}" /><span>${item.label}</span>`;
+        btn.addEventListener("click", () => applyLang(code));
+        wrap.appendChild(btn);
+      });
+    }
+
+    function applyLang(code) {
+      const d = t[code] || t.en;
+      document.documentElement.lang = code;
+      document.title = `${d.subtitle} - ${d.title}`;
+      document.getElementById("title").textContent = d.title;
+      document.getElementById("subtitle").textContent = d.subtitle;
+      document.getElementById("intro").textContent = d.intro;
+      document.getElementById("note").textContent = d.note;
+      document.getElementById("footer").textContent = d.footer;
+
+      const chips = document.getElementById("chips");
+      chips.innerHTML = "";
+      d.chips.forEach((text) => {
+        const node = document.createElement("span");
+        node.className = "chip";
+        node.textContent = text;
+        chips.appendChild(node);
+      });
+
+      const content = document.getElementById("content");
+      content.innerHTML = "";
+      sections.forEach((key) => {
+        const article = document.createElement("article");
+        article.className = "section glass";
+        const bodyHtml = key === "contact"
+          ? `${d[`${key}Html`]}${contactEmailHtml}`
+          : d[`${key}Html`];
+        article.innerHTML = `<h3>${d[`${key}Title`]}</h3>${bodyHtml}`;
+        content.appendChild(article);
+      });
+
+      renderLangButtons(code);
+      localStorage.setItem(storageKey, code);
+    }
+
+    applyLang(preferredLang());
+  </script>
+</body>
+</html>
